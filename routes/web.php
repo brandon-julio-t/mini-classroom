@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes(['verify' => true]);
+
+Route::middleware('auth')->group(function () {
+
+    Route::view('/', 'dashboard')->name('home');
+
+    Route::post('classrooms/enroll', 'ClassroomController@enroll')
+        ->name('classrooms.enroll');
+    Route::delete('classrooms/unenroll/{classroom_id}', 'ClassroomController@unenroll')
+        ->name('classrooms.unenroll');
+
+    Route::get('assignments/all', 'AssignmentController@all')->name('assignments.all');
+
+    Route::resources([
+        'profile' => 'ProfileController',
+        'classrooms' => 'ClassroomController',
+        'classrooms.assignments' => 'AssignmentController',
+        'classrooms.assignments.submitted' => 'SubmittedAssignmentController'
+    ]);
+
 });
+
