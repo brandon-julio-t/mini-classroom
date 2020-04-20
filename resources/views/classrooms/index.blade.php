@@ -99,7 +99,7 @@
 
                                                     <a
                                                         href="{{ route('classrooms.show', $classroom->id) }}"
-                                                        class="col-3 btn btn-outline-primary"
+                                                        class="col-3 btn btn-outline-dark"
                                                     >
                                                         View
                                                     </a>

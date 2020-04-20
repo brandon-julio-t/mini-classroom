@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
         'profile' => 'ProfileController',
         'classrooms' => 'ClassroomController',
         'classrooms.assignments' => 'AssignmentController',
-        'classrooms.assignments.submitted' => 'SubmittedAssignmentController'
+        'assignments.submitted' => 'SubmittedAssignmentController'
     ]);
 
 });

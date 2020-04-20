@@ -23,23 +23,40 @@
                             @if (Auth::user()->isStudent())
                                 @forelse (Auth::user()->student->classrooms as $classroom)
                                     @forelse ($classroom->assignments as $assignment)
-                                        <tr>
-                                            <td>{{ $assignment->title }}</td>
-                                            <td>{{ $assignment->classroom->name }}</td>
-                                            <td>{{ $assignment->updated_at }}</td>
-                                            <td>{{ $assignment->due }}</td>
-                                            <td>
-                                                <div class="row justify-content-around">
-                                                    <a
-                                                        href="{{ route('classrooms.assignments.show', [$classroom, $assignment]) }}"
-                                                        class="col-5 btn btn-outline-primary d-flex align-items-center justify-content-center"
-                                                    >
-                                                        View
-                                                    </a>
-                                                    <a href="#" class="col-5 btn btn-outline-dark">Submit Answer</a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @if (Carbon\Carbon::parse($assignment->due)->isFuture())
+                                            <tr>
+                                                <td>{{ $assignment->title }}</td>
+                                                <td>{{ $assignment->classroom->name }}</td>
+                                                <td>{{ $assignment->updated_at }}</td>
+                                                <td>{{ $assignment->due }}</td>
+                                                <td>
+                                                    <div class="row justify-content-around">
+                                                        <a
+                                                            href="{{ route('classrooms.assignments.show', [$classroom, $assignment]) }}"
+                                                            class="col-3 btn btn-outline-dark d-flex align-items-center justify-content-center"
+                                                        >
+                                                            View
+                                                        </a>
+                                                        <a
+                                                            href="{{ route('assignments.submitted.create', [$assignment]) }}"
+                                                            class="col-3 btn btn-outline-dark @if (Carbon\Carbon::parse($assignment->due)->isPast()) disabled @endif">
+                                                            Submit Answer
+                                                        </a>
+                                                        @if (is_null(Auth::user()->student->submittedAssignments->firstWhere('assignment_id', $assignment->id)))
+                                                            <button class="col-3 btn btn-outline-dark disabled">
+                                                                No Answer
+                                                            </button>
+                                                        @else
+                                                            <a
+                                                                href="{{ Storage::url(Auth::user()->student->submittedAssignments->firstWhere('assignment_id', $assignment->id)->path) }}"
+                                                                class="col-3 btn btn-outline-dark">
+                                                                Download Answer
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @empty
                                         <p>No assignment for today. Enjoy your day!</p>
                                     @endforelse

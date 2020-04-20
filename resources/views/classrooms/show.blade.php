@@ -40,11 +40,26 @@
                                             <div class="row justify-content-around">
                                                 <a
                                                     href="{{ route('classrooms.assignments.show', [$classroom, $assignment]) }}"
-                                                    class="col-5 btn btn-outline-primary"
+                                                    class="col-3 btn btn-outline-dark d-flex align-items-center justify-content-center"
                                                 >
                                                     View
                                                 </a>
-                                                <a href="#" class="col-5 btn btn-outline-dark">Submit Answer</a>
+                                                <a
+                                                    href="{{ route('assignments.submitted.create', [$assignment]) }}"
+                                                    class="col-3 btn btn-outline-dark">
+                                                    Submit Answer
+                                                </a>
+                                                @if (is_null(Auth::user()->student->submittedAssignments->firstWhere('assignment_id', $assignment->id)))
+                                                    <button class="col-3 btn btn-outline-dark disabled">
+                                                        No Answer
+                                                    </button>
+                                                @else
+                                                    <a
+                                                        href="{{ Storage::url(Auth::user()->student->submittedAssignments->firstWhere('assignment_id', $assignment->id)->path) }}"
+                                                        class="col-3 btn btn-outline-dark">
+                                                        Download Answer
+                                                    </a>
+                                                @endif
                                             </div>
                                         @else
                                             <form
@@ -57,15 +72,21 @@
 
                                                 <a
                                                     href="{{ route('classrooms.assignments.show', [$classroom, $assignment]) }}"
-                                                    class="col-3 btn btn-outline-primary"
+                                                    class="col-3 btn btn-outline-dark d-flex justify-content-center align-items-center"
                                                 >
                                                     View
                                                 </a>
                                                 <a
                                                     href="{{ route('classrooms.assignments.edit', [$classroom, $assignment]) }}"
-                                                    class="col-3 btn btn-outline-dark"
+                                                    class="col-3 btn btn-outline-dark d-flex justify-content-center align-items-center"
                                                 >
                                                     Edit
+                                                </a>
+                                                <a
+                                                    href="{{ route('assignments.submitted.index', $assignment) }}"
+                                                    class="col-3 btn btn-outline-dark"
+                                                >
+                                                    View All Answers
                                                 </a>
                                                 <button
                                                     type="submit"

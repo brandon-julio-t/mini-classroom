@@ -17,4 +17,9 @@ class Assignment extends Model
     {
         return $this->belongsTo('App\Teacher');
     }
+
+    public function submittedAssignments()
+    {
+        return $this->hasMany('App\SubmittedAssignment');
+    }
 }
