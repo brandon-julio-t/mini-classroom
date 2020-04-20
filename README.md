@@ -2,19 +2,20 @@
 
 ## Note
 
-Upload file may works and is registered in the database, but download file won't work due to [Heroku's ephemeral filesystem](https://help.heroku.com/K1PPS2WM/why-are-my-file-uploads-missing-deleted)
+- The app is slow on first open due to [Heroku's dyno "sleeps"](https://devcenter.heroku.com/articles/free-dyno-hours) after 30 minutes of inactivity.
+- Upload file may works and is registered in the database, but download file won't work due to [Heroku's ephemeral filesystem](https://help.heroku.com/K1PPS2WM/why-are-my-file-uploads-missing-deleted)
 
 ## What I Implemented
 
--   Authentication with Laravel
--   File Storage with Laravel
--   Resource controller with Laravel
--   Database system with PostgreSQL
--   Database migration with Laravel
--   Database query with Laravel's Eloquent ORM
--   Frontend template with Laravel's Blade
--   Frontend design with Bootstrap
--   Diagram design with diagrams.net
+-   Authentication with [Laravel](https://laravel.com/)
+-   File Storage with [Laravel](https://laravel.com/)
+-   Resource controller with [Laravel](https://laravel.com/)
+-   Database system with [PostgreSQL](https://www.postgresql.org/)
+-   Database migration with [Laravel](https://laravel.com/)
+-   Database query with [Laravel's Eloquent ORM](https://laravel.com/docs/7.x/eloquent)
+-   Frontend template with [Laravel's Blade](https://laravel.com/docs/7.x/blade)
+-   Frontend design with [Bootstrap](https://getbootstrap.com/)
+-   Diagram design with [diagrams.net](https://www.diagrams.net/)
 
 ---
 
