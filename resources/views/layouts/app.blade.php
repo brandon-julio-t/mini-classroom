@@ -35,15 +35,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item  @if (Str::contains(Route::currentRouteName(), 'profile')) active @endif">
-                        <a href="{{ route('profile.index') }}" class="nav-link">My Profile</a>
-                    </li>
-                    <li class="nav-item  @if (Str::contains(Route::currentRouteName(), 'assignments')) active @endif">
-                        <a href="{{ route('assignments.all') }}" class="nav-link">My Assignments</a>
-                    </li>
-                    <li class="nav-item  @if (Str::contains(Route::currentRouteName(), 'classrooms')) active @endif">
-                        <a href="{{ route('classrooms.index') }}" class="nav-link">My Classrooms</a>
-                    </li>
+                    @auth
+                        <li class="nav-item  @if (Str::contains(Route::currentRouteName(), 'profile')) active @endif">
+                            <a href="{{ route('profile.index') }}" class="nav-link">My Profile</a>
+                        </li>
+                        <li class="nav-item  @if (Str::contains(Route::currentRouteName(), 'assignments')) active @endif">
+                            <a href="{{ route('assignments.all') }}" class="nav-link">My Assignments</a>
+                        </li>
+                        <li class="nav-item  @if (Str::contains(Route::currentRouteName(), 'classrooms')) active @endif">
+                            <a href="{{ route('classrooms.index') }}" class="nav-link">My Classrooms</a>
+                        </li>
+                    @endauth
                 </ul>
 
                 <!-- Right Side Of Navbar -->
