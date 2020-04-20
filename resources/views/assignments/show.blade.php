@@ -37,7 +37,7 @@
                                     </button>
                                 @else
                                     <a
-                                        href="{{ secure_url(Storage::url(Auth::user()->student->submittedAssignments->firstWhere('assignment_id', $assignment->id)->path)) }}"
+                                        href="{{ Storage::url(Auth::user()->student->submittedAssignments->firstWhere('assignment_id', $assignment->id)->path) }}"
                                         class="col-3 btn btn-outline-dark">
                                         Download Answer
                                     </a>
