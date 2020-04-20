@@ -47,23 +47,16 @@ class SubmittedAssignmentController extends Controller
 
         if (Auth::user()->isStudent()) {
             $file = $request->file('answer');
-            $filename = "{$assignment->classroom->name}_{$assignment->title}_" . Auth::user()->name;
+            $filename = $assignment->classroom->name . '_' . Auth::user()->name;
 
-            $path = $file->storeAs('public/answers', "{$filename}.{$file->extension()}");
+            $path = $file->storeAs('public/answers', $filename . '.' . $file->extension());
 
-            $query = SubmittedAssignment::where('assignment_id', $assignment->id)
-                        ->where('student_id', Auth::user()->student->id);
-
-            if ($query->exists()) {
-                $query->first()->update(['path' => $path]);
-            } else {
-                SubmittedAssignment::create([
-                    'path' => $path,
-                    'created_at' => now(),
-                    'student_id' => Auth::user()->student->id,
-                    'assignment_id' => $assignment->id
-                ]);
-            }
+            SubmittedAssignment::create([
+                'path' => $path,
+                'created_at' => now(),
+                'student_id' => Auth::user()->student->id,
+                'assignment_id' => $assignment->id
+            ]);
 
             return redirect()->route('assignments.all')
                 ->with('flash_message', 'Answer submitted.');
